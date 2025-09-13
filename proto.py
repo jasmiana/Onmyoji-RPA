@@ -21,12 +21,12 @@ def _click_series():
     # pyautogui.moveTo(_final_x, _final_y)
     if decision > 0.665313:
         # pyautogui.click(_final_x, _final_y)
-        _gaussian_click(_now_x, _now_y, 12)
+        _gaussian_click(_now_x, _now_y, 60)
     else:
         for _ in range(2):
             # pyautogui.click(_final_x, _final_y)
-            _gaussian_click(_now_x, _now_y, 6)
-            time.sleep(min(abs(random.normalvariate(0.12, 0.01)), 0.12))
+            _gaussian_click(_now_x, _now_y, 30)
+            time.sleep(max(abs(random.normalvariate(0.09, 0.01)), 0.09))
     pyautogui.moveTo(_now_x, _now_y)
 
 def _click_3():
@@ -34,11 +34,11 @@ def _click_3():
     decision = random.random()
     if decision > 0.748964:
         for _ in range(3):
-            _gaussian_click(_now_x, _now_y, 6)
+            _gaussian_click(_now_x, _now_y, 15)
             time.sleep(abs(random.normalvariate(0.1, 0.01)))
     else:
         for _ in range(4):
-            _gaussian_click(_now_x, _now_y, 3)
+            _gaussian_click(_now_x, _now_y, 15)
             time.sleep(abs(random.normalvariate(0.1, 0.01)))
     pyautogui.moveTo(_now_x, _now_y)
 
@@ -51,20 +51,25 @@ if __name__ == "__main__":
     FLAG = 1
     
     while True:
-        des1 = random.random()
-        des2 = random.normalvariate(-0.2, 0.5)
+        try:
+            des1 = random.random()
+            des2 = random.normalvariate(-0.1, 0.5)
+            
+            if FLAG == 1:
+                _click_series()
+                time.sleep(max(abs(random.normalvariate(10.5, 2)), 10))
+                
+            if des1 > des2:
+                _click_series()
+                time.sleep(max(abs(random.normalvariate(1.2, 0.2)), 1))
+                FLAG = 1
+            else:
+                _click_3()
+                time.sleep(max(abs(random.normalvariate(12.5, 2)), 12))
+                FLAG = 0
+        except pyautogui.PyAutoGUIException as e:
+            print("⚠️ Fail Safe Exception")
+            break
         
-        if FLAG == 1:
-            _click_series()
-            time.sleep(max(abs(random.normalvariate(10.5, 2)), 10))
-            
-        if des1 > des2:
-            _click_series()
-            time.sleep(max(abs(random.normalvariate(1.2, 0.2)), 1))
-            FLAG = 1
-        else:
-            _click_3()
-            time.sleep(max(abs(random.normalvariate(12.5, 2)), 12))
-            FLAG = 0
-            
-    
+        # _click_3()
+        # time.sleep(max(abs(random.normalvariate(10.5, 2)), 10))
