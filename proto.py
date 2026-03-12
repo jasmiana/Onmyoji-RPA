@@ -2,6 +2,7 @@ import pyautogui
 import random
 import time
 import math
+import sys
 
 def _gaussian_click(center_x, center_y, radius=5):
     sigma = radius / 3
@@ -43,10 +44,15 @@ def _click_3():
     pyautogui.moveTo(_now_x, _now_y)
 
 if __name__ == "__main__":
-    for i in range(3, 0, -1):
-        print(f"Start in {i} s...", end="\r")
-        time.sleep(1)
-    print("\nStart...")
+    try:
+        for i in range(3, 0, -1):
+            print(f"Start in {i} s...", end="\r")
+            time.sleep(1)
+        print("\nStart...")
+    except KeyboardInterrupt:
+        print("")
+        print("⚠️  Ctrl+C")
+        sys.exit(0)
     
     FLAG = 1
     
@@ -57,19 +63,22 @@ if __name__ == "__main__":
             
             if FLAG == 1:
                 _click_series()
-                time.sleep(max(abs(random.normalvariate(10.5, 2)), 10))
+                time.sleep(max(abs(random.normalvariate(17.5, 2)), 17))
                 
             if des1 > des2:
                 _click_series()
-                time.sleep(max(abs(random.normalvariate(1.2, 0.2)), 1))
+                time.sleep(max(abs(random.normalvariate(2.2, 0.2)), 2))
                 FLAG = 1
             else:
                 _click_3()
-                time.sleep(max(abs(random.normalvariate(12.5, 2)), 12))
+                time.sleep(max(abs(random.normalvariate(18.5, 2)), 18))
                 FLAG = 0
-        except pyautogui.PyAutoGUIException as e:
-            print("⚠️ Fail Safe Exception")
-            break
+        except pyautogui.PyAutoGUIException:
+            print("⚠️  Fail Safe Exception")
+            sys.exit(0)   
+        except KeyboardInterrupt:
+            print("⚠️  Ctrl+C")
+            sys.exit(0)   
         
         # _click_3()
         # time.sleep(max(abs(random.normalvariate(10.5, 2)), 10))

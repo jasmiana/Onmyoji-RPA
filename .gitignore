@@ -1,0 +1,11 @@
+# 忽略根目录所有文件和目录
+/*
+
+# 排除以下指定的必须上传的文件和目录
+!/assets/
+!/README.md
+!/proto_dz.py
+!/proto.py
+!/monthly_token.py
+!/.gitignore
+!/LICENSE
